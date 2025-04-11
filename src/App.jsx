@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import axios from 'axios'
+import axios from 'axios';
+import FadeIn from 'react-fade-in';
+import Lottie from 'react-lottie';
+import * as loadingData from "./assets/loading.json";
 
 // Component
 import FavPoke from './components/FavPoke'
@@ -11,6 +14,15 @@ function App() {
   const [error, setError] = useState('')
   const [number, setNumber] = useState(1)
   const [fav, setFav] = useState([])
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: loadingData.default,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice"
+    }
+  };
 
 
   useEffect(() => {
@@ -53,13 +65,17 @@ function App() {
     }
   }
 
-  console.log("My Fav: ", fav)
-
   return (
     <>
       <div className="">
         {loading ?
-          <p>Loading...</p>
+          <FadeIn>
+            {/* <p>loading...</p> */}
+            <Lottie options={defaultOptions} height={140} width={140}></Lottie>
+          </FadeIn>
+
+
+          // < ReactLoading type='spin' color='black' height={'20%'} width={'20%'} />
           :
           <>
             {poke && (
